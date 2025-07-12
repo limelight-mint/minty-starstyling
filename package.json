@@ -1,0 +1,112 @@
+{
+  "name": "minty-starstyling",
+  "displayName": "✨ | Starstyling",
+  "description": "✨ | Minty Extension for personal use to keep spacious and cosy atmosphere in the code with simple OOP-like visuals.",
+  "publisher": "limelight-mint",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/limelight-mint/minty-starstyling.git"
+  },
+  "version": "0.1.1",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Formatters",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "minty-starstyling.format",
+        "title": "✨ | Starstyle format"
+      },
+      {
+        "command": "minty-starstyling.formatProject",
+        "title": "✨ | Starstyle format entire project"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "minty-starstyling.format",
+        "key": "ctrl+shift+s",
+        "when": "editorTextFocus && (editorLangId == javascript || editorLangId == typescript)"
+      },
+      {
+        "command": "minty-starstyling.formatProject",
+        "key": "ctrl+shift+a",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "✨ | Starstyling",
+      "properties": {
+        "starstyling.styleKey": {
+          "type": "string",
+          "default": "ctrl+shift+s",
+          "description": "[✨] Keyboard shortcut for manual formatting (default: ctrl+shift+s)"
+        },
+        "starstyling.styleKeyEntireProject": {
+          "type": "string",
+          "default": "ctrl+shift+a",
+          "description": "[✨] Keyboard shortcut for formatting entire project (default: ctrl+shift+a)"
+        },
+        "starstyling.isFormatOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "[✨] Automatically format files on save (default: enabled)"
+        },
+        "starstyling.excludeFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "*.min.js",
+            "*.bundle.js",
+            "vendor.js",
+            "bundle.js"
+          ],
+          "description": "[✨] Files to exclude from formatting (glob patterns)"
+        },
+        "starstyling.excludeFolders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules",
+            "dist",
+            "build",
+            ".git"
+          ],
+          "description": "[✨] Folders to exclude from formatting"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}

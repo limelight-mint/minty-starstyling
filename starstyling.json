@@ -1,0 +1,14 @@
+{
+  "starstyling.isFormatOnSave": true,
+  "starstyling.excludeFiles": [
+    "*.min.js",
+    "bundle.js",
+    "vendor.js"
+  ],
+  "starstyling.excludeFolders": [
+    "node_modules",
+    "dist",
+    "build",
+    "configs"
+  ]
+}
