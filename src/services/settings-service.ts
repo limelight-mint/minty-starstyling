@@ -16,7 +16,10 @@ export default class SettingsService
         const excludeFiles = config.get<string[]>('excludeFiles', []);
         const excludeFolders = config.get<string[]>('excludeFolders', []);
         const isFormatOnSave = config.get<boolean>('isFormatOnSave', false);
-        const howManyLinesToAdd = config.get<number>('howManyLinesToAdd', 2);
+        const howManyLinesToAddBeforeFunctions = config.get<number>('howManyLinesToAddBeforeFunctions', 2);
+        const howManyLinesToAddBeforeConstructor = config.get<number>('howManyLinesToAddBeforeConstructor', 1);
+        const howManyLinesToAddAfterImports = config.get<number>('howManyLinesToAddAfterImports', 2);
+        const howManyLinesToAddBeforeClasses = config.get<number>('howManyLinesToAddBeforeClasses', 2);
         const styleKey = config.get<string>('styleKey', "ctrl+shift+s");
         const styleKeyEntireProject = config.get<string>('styleKeyEntireProject', "ctrl+shift+a");
 
@@ -24,7 +27,10 @@ export default class SettingsService
             excludeFiles,
             excludeFolders,
             isFormatOnSave,
-            howManyLinesToAdd,
+            howManyLinesToAddBeforeFunctions,
+            howManyLinesToAddBeforeConstructor,
+            howManyLinesToAddAfterImports,
+            howManyLinesToAddBeforeClasses,
             styleKey,
             styleKeyEntireProject
         };

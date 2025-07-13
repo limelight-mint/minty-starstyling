@@ -1,6 +1,7 @@
 /* eslint-disable curly */
 import SettingsService from './services/settings-service';
 import { isComment, checkForFunctionAfterComment, isCommentBlockStart, isCommentBlockEnd, isFunctionOrExportDeclaration, shouldSkipIndentation, shouldSkipProcessing, isReturnAnonymousObject, isAnonymousObjectOneLiner, isCollapsedAnonymousObject } from './validator';
+import { SpacingTypes } from './interfaces/spacing-types';
 
 //module level (to not pass sausages on each function) 🌭
 let commentBlockStarted = false;
@@ -14,7 +15,9 @@ export function format(text: string, isTypeScript: boolean = false): string
 function preprocessLines(text: string, isTypeScript: boolean): string[] 
 {
     const preprocessed: string[] = [];
-    const lines = text.split('\n');
+    const lines = text.split('\n');    
+    let importSectionEnded = false;
+    let blankLinesAdded = false;
     
     for (let i = 0; i < lines.length; i++) 
     {
@@ -26,7 +29,15 @@ function preprocessLines(text: string, isTypeScript: boolean): string[]
             const { collectedImport, linesSkipped } = collectImportStatement(lines, i);
             preprocessed.push(collectedImport);
             i += linesSkipped - 1; // -1 because the loop will increment i
+            importSectionEnded = true;
             continue;
+        }
+
+        // Add lines after imports (only once)
+        if (importSectionEnded && !blankLinesAdded && line !== '') 
+        {
+            addSpacings(preprocessed, SpacingTypes.Imports);
+            blankLinesAdded = true;
         }
         
         // Skip comments
@@ -184,6 +195,22 @@ function processBraces(line: string): string[]
                 i += 2;
                 continue;
             }
+
+            // Handle closing brace from promises
+            if (char === '}' && nextChar === ')' && line[i + 2] === ';') 
+            {
+                result += '\n});\n';
+                i += 3;
+                continue;
+            }
+
+            // Handle closing brace from promises
+            if (char === '}' && nextChar === ')') 
+            {
+                result += '\n})\n';
+                i += 2;
+                continue;
+            }
             
             // Handle closing brace without semicolon
             if (char === '}' && nextChar !== '}') 
@@ -256,7 +283,7 @@ function applyIndentation(preprocessed: string[]): string
         addSpacingBeforeFunction(trimmedLine, formattedLines, lastWasFunctionOrExport, isFunctionOrExport);
 
         // Handle closing braces - reduce indent before adding
-        if (trimmedLine === '}' || trimmedLine === '};' || trimmedLine === '},') 
+        if (trimmedLine === '}' || trimmedLine === '};' || trimmedLine === '},' || trimmedLine === '})' || trimmedLine === '});') 
         {
             indentLevel = Math.max(0, indentLevel - 1);
             isAnonymousObject = false;
@@ -310,14 +337,39 @@ function handleCommentBlock(line: string, index: number, preprocessed: string[],
 
 function addSpacingBeforeFunction(line: string, formattedLines: string[], lastWasFunctionOrExport: boolean, isFunctionOrExport: boolean): void 
 {
-    const settings = new SettingsService();
     const previousLine = formattedLines.length > 0 ? formattedLines[formattedLines.length - 1] : '';
     const previousLineIsComment = isComment(previousLine);
     
     if (isFunctionOrExport && formattedLines.length > 0 && !lastWasFunctionOrExport && !previousLineIsComment) 
     {
-        for (let i = 0; i < settings.get.howManyLinesToAdd; i++) {
-            formattedLines.push('');
-        }
+        let type = SpacingTypes.Functions;
+        if(line.startsWith('constructor')) type = SpacingTypes.Constructor;
+        if(line.startsWith('class') || line.includes(' class ')) type = SpacingTypes.Classes;
+        addSpacings(formattedLines, type);
+    }
+}
+
+function addSpacings(formattedLines: string[], type: SpacingTypes = SpacingTypes.Default)
+{
+    const settings = new SettingsService();
+    let value = settings.get.howManyLinesToAddBeforeFunctions;
+
+    switch (type) {
+        case SpacingTypes.Constructor:
+            value = settings.get.howManyLinesToAddBeforeConstructor;
+            break;
+        case SpacingTypes.Imports:
+            value = settings.get.howManyLinesToAddAfterImports;
+            break;
+        
+        case SpacingTypes.Default:
+        case SpacingTypes.Functions:
+        default:
+            value = settings.get.howManyLinesToAddBeforeFunctions;
+            break;
+    }
+
+    for (let i = 0; i < value; i++) {
+        formattedLines.push('');
     }
 }

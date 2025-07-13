@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/limelight-mint/minty-starstyling.git"
   },
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -62,10 +62,25 @@
           "default": true,
           "description": "[✨] Automatically format files on save (default: enabled)"
         },
-        "starstyling.howManyLinesToAdd": {
+        "starstyling.howManyLinesToAddBeforeFunctions": {
           "type": "number",
           "default": 2,
-          "description": "[✨] How many new lines should add before function, after imports, before classes, etc. (default: 2)"
+          "description": "[✨] How many new lines should add before function and exports. (default: 2)"
+        },
+        "starstyling.howManyLinesToAddBeforeConstructor": {
+          "type": "number",
+          "default": 1,
+          "description": "[✨] How many new lines should add before constructor inside classes. (default: 1)"
+        },
+        "starstyling.howManyLinesToAddAfterImports": {
+          "type": "number",
+          "default": 2,
+          "description": "[✨] How many new lines should add after imports block. (default: 2)"
+        },
+        "starstyling.howManyLinesToAddBeforeClasses": {
+          "type": "number",
+          "default": 2,
+          "description": "[✨] How many new lines should add before classes keywords. (default: 2)"
         },
         "starstyling.excludeFiles": {
           "type": "array",
