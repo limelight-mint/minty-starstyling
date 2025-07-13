@@ -1,6 +1,6 @@
 # ✨ | Starstyling
 
-A Minty VS Code extension for personal use to keep spacious and cosy atmosphere in the code with simple OOP-like visuals. 🍃
+VS Code extension to format your code into simple cosy and spacious OOP style in JS and TS files. 🍃
 
 ## Features
 
@@ -15,9 +15,35 @@ A Minty VS Code extension for personal use to keep spacious and cosy atmosphere 
 
 ### Automatic Formatting (default: true)
 The extension automatically formats your JS/TS files when you save (`Ctrl+S`).
+> To enable manual formatting use setting: `"starstyling.isFormatOnSave": false`
+>
+> Default key for manual format is: `"starstyling.styleKey": "ctrl+shift+f"`
 
 > [!NOTE]  
 > All commands starts with `✨ | Starstyle...` in Command Palette.
+
+
+## Working Example
+
+**Before:**
+```javascript
+function test(){if(true){console.log("hello");}else{console.log("world");}}
+```
+
+**After:**
+```javascript
+function test() 
+{
+    if(true) 
+    {
+        console.log("hello");
+    } 
+    else 
+    {
+        console.log("world");
+    }
+}
+```
 
 ## Settings Example
 > No configuration needed to get started! 🌿✨
@@ -43,28 +69,6 @@ Default `.vscode/settings.json` customization (already applied, but u can custom
     "build",
     ".git"
   ]
-}
-```
-
-## Working Example
-
-**Before:**
-```javascript
-function test(){if(true){console.log("hello");}else{console.log("world");}}
-```
-
-**After:**
-```javascript
-function test() 
-{
-    if(true) 
-    {
-        console.log("hello");
-    } 
-    else 
-    {
-        console.log("world");
-    }
 }
 ```
 
