@@ -62,6 +62,11 @@
           "default": true,
           "description": "[✨] Automatically format files on save (default: enabled)"
         },
+        "starstyling.howManyLinesToAdd": {
+          "type": "number",
+          "default": 2,
+          "description": "[✨] How many new lines should add before function, after imports, before classes, etc. (default: 2)"
+        },
         "starstyling.excludeFiles": {
           "type": "array",
           "items": {

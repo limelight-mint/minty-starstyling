@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
-import { formatWithOOPStyle } from './formatter';
+import { format } from './formatter';
 import { shouldExcludeFile, shouldFormatDocument } from './utils';
+import SettingsService from './services/settings-service';
 
 export function formatCurrentDocument() : void 
 {
@@ -34,7 +35,7 @@ export function formatDocument(document: vscode.TextDocument) : void
 
     const text = document.getText();
     const isTypeScript = document.languageId === 'typescript';
-    const formattedText = formatWithOOPStyle(text, isTypeScript);
+    const formattedText = format(text, isTypeScript);
     
     // Only format if the text actually changed
     if (text !== formattedText) 
@@ -67,7 +68,7 @@ export function formatDocument(document: vscode.TextDocument) : void
     }
 }
 
-export async function formatEntireProject() : Promise<void> 
+export async function formatEntireProject(settings: SettingsService) : Promise<void> 
 {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders || workspaceFolders.length === 0) 
@@ -89,8 +90,7 @@ export async function formatEntireProject() : Promise<void>
         let skippedCount = 0;
 
         // Get exclude folders from settings
-        const config = vscode.workspace.getConfiguration('starstyling');
-        const excludeFolders = config.get<string[]>('excludeFolders', []);
+        const excludeFolders = settings.get.excludeFolders;
         
         // Build the exclude pattern for findFiles
         const excludePatterns = ['**/node_modules/**']; // Default exclude
@@ -119,7 +119,7 @@ export async function formatEntireProject() : Promise<void>
                     const document = await vscode.workspace.openTextDocument(fileUri);
                     const text = document.getText();
                     const isTypeScript = document.languageId === 'typescript';
-                    const formattedText = formatWithOOPStyle(text, isTypeScript);
+                    const formattedText = format(text, isTypeScript);
 
                     if (text !== formattedText) 
                     {
