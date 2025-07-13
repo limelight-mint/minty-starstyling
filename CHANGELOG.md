@@ -45,6 +45,7 @@ Based on [Keep a Changelog](http://keepachangelog.com/).
 - Custom Imports/Require line spacings
 - Custom Class/Constructor line spacings
 - Custom Functions/Exports line spacings
+- README settings updated with all possible `/.vscode/settings.json` configs
 
 ### Fixed
 
