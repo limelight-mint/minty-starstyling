@@ -37,3 +37,17 @@ Based on [Keep a Changelog](http://keepachangelog.com/).
 - Comments being treated as functions
 - Imports being treated as functions
 - Imports collapse
+
+## [0.2.1] - 2025-07-13
+
+### Added
+
+- Custom Imports/Require line spacings
+- Custom Class/Constructor line spacings
+- Custom Functions/Exports line spacings
+
+### Fixed
+
+- Imports now have spacings after the block not just collapsing together
+- Promises now have better endings and do not transfer to the next line if they were together (no spaces)
+- return and anonymous object blocks are now calculate brackets and return types properly

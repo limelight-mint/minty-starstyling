@@ -57,6 +57,10 @@ Default `.vscode/settings.json` customization (already applied, but u can custom
   "starstyling.isFormatOnSave": true,
   "starstyling.styleKey": "ctrl+shift+s",
   "starstyling.styleKeyEntireProject": "ctrl+shift+a",
+  "starstyling.howManyLinesToAddBeforeFunctions": "2",
+  "starstyling.howManyLinesToAddBeforeConstructor": "1",
+  "starstyling.howManyLinesToAddAfterImports": "2",
+  "starstyling.howManyLinesToAddBeforeClasses": "1",
   "starstyling.excludeFiles": [
     "*.min.js",
     "*.bundle.js",
