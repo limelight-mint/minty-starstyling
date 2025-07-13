@@ -1,10 +1,12 @@
 import * as vscode from 'vscode';
 import { formatCurrentDocument, formatDocument, formatEntireProject } from './commands';
 import { shouldFormatDocument } from './utils';
+import SettingsService from './services/settings-service';
 
 export function activate(context: vscode.ExtensionContext): void 
 {
     console.log('[✨] Starstyling extension is softly started 🌿');
+    const settings = new SettingsService();
 
     // Show welcome message on first install
     const isFirstRun = context.globalState.get('starstyling.firstRun', true);
@@ -31,15 +33,14 @@ export function activate(context: vscode.ExtensionContext): void
     const formatProjectCommand = vscode.commands.registerCommand('minty-starstyling.formatProject', () => 
     {
         console.log('[✨] 📂 | Format entire project triggered');
-        formatEntireProject();
+        formatEntireProject(settings);
     });
 
     // Register format on save
     const saveListener = vscode.workspace.onDidSaveTextDocument((document) => 
     {
         console.log('[✨] 💾 | Save detected for:', document.fileName);
-        const config = vscode.workspace.getConfiguration('starstyling');
-        const isFormatOnSave = config.get<boolean>('isFormatOnSave', false);
+        const isFormatOnSave = settings.get.isFormatOnSave;
         
         if (isFormatOnSave && shouldFormatDocument(document)) 
         {

@@ -1,6 +1,6 @@
 # ✨ | Starstyling
 
-A Minty VS Code extension for personal use to keep spacious and cosy atmosphere in the code with simple OOP-like visuals. 🍃
+VS Code extension to format your code into simple cosy and spacious OOP style in JS and TS files. 🍃
 
 ## Features
 
@@ -15,36 +15,13 @@ A Minty VS Code extension for personal use to keep spacious and cosy atmosphere 
 
 ### Automatic Formatting (default: true)
 The extension automatically formats your JS/TS files when you save (`Ctrl+S`).
+> To enable manual formatting use setting: `"starstyling.isFormatOnSave": false`
+>
+> Default key for manual format is: `"starstyling.styleKey": "ctrl+shift+f"`
 
 > [!NOTE]  
 > All commands starts with `✨ | Starstyle...` in Command Palette.
 
-## Settings Example
-> No configuration needed to get started! 🌿✨
-
-> [!TIP]  
-> Open VS Code settings (`Ctrl+,`) and search for "starstyling" to customize. Or use `.vscode/settings.json` file to exclude folders or singular files.
-
-Default `.vscode/settings.json` customization (already applied, but u can customize if u want):
-```
-{
-  "starstyling.isFormatOnSave": true,
-  "starstyling.styleKey": "ctrl+shift+s",
-  "starstyling.styleKeyEntireProject": "ctrl+shift+a",
-  "starstyling.excludeFiles": [
-    "*.min.js",
-    "*.bundle.js",
-    "bundle.js",
-    "vendor.js"
-  ],
-  "starstyling.excludeFolders": [
-    "node_modules",
-    "dist",
-    "build",
-    ".git"
-  ]
-}
-```
 
 ## Working Example
 
@@ -65,6 +42,37 @@ function test()
     {
         console.log("world");
     }
+}
+```
+
+## Settings Example
+> No configuration needed to get started! 🌿✨
+
+> [!TIP]  
+> Open VS Code settings (`Ctrl+,`) and search for "starstyling" to customize. Or use `.vscode/settings.json` file to exclude folders or singular files.
+
+Default `.vscode/settings.json` customization (already applied, but u can customize if u want):
+```
+{
+  "starstyling.isFormatOnSave": true,
+  "starstyling.styleKey": "ctrl+shift+s",
+  "starstyling.styleKeyEntireProject": "ctrl+shift+a",
+  "starstyling.howManyLinesToAddBeforeFunctions": "2",
+  "starstyling.howManyLinesToAddBeforeConstructor": "1",
+  "starstyling.howManyLinesToAddAfterImports": "2",
+  "starstyling.howManyLinesToAddBeforeClasses": "1",
+  "starstyling.excludeFiles": [
+    "*.min.js",
+    "*.bundle.js",
+    "bundle.js",
+    "vendor.js"
+  ],
+  "starstyling.excludeFolders": [
+    "node_modules",
+    "dist",
+    "build",
+    ".git"
+  ]
 }
 ```
 
