@@ -1,7 +1,10 @@
 {
   "starstyling.isFormatOnSave": true,
+  "starstyling.styleKey": "ctrl+shift+s",
+  "starstyling.styleKeyEntireProject": "ctrl+shift+a",
   "starstyling.excludeFiles": [
     "*.min.js",
+    "*.bundle.js",
     "bundle.js",
     "vendor.js"
   ],
@@ -9,6 +12,6 @@
     "node_modules",
     "dist",
     "build",
-    "configs"
+    ".git"
   ]
 }
